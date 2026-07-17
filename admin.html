@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Thiệp Mời</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #c9a876;
+      --gold-dark: #a68157;
+      --dark: #1f1f1f;
+      --light: #fafaf8;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      padding: 20px;
+    }
+
+    .admin-container {
+      background: white;
+      border-radius: 16px;
+      padding: 50px 60px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .admin-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .admin-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .admin-header p {
+      font-size: 14px;
+      color: #7a7a7a;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-content {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .admin-section {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 30px;
+    }
+
+    .admin-section h2 {
+      font-size: 18px;
+      color: var(--dark);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .generate-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .admin-input {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 14px;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--dark);
+      background: #fafaf8;
+    }
+
+    .admin-input:focus {
+      outline: none;
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 3px rgba(201, 168, 118, 0.1);
+    }
+
+    .admin-btn-generate {
+      padding: 12px 24px;
+      background: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .admin-btn-generate:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+
+    .guest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .guest-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: #fafaf8;
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .guest-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .guest-name {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .guest-link {
+      font-size: 12px;
+      color: #7a7a7a;
+      word-break: break-all;
+      font-family: 'Courier New', monospace;
+      background: white;
+      padding: 6px 8px;
+      border-radius: 4px;
+    }
+
+    .guest-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .guest-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .guest-btn-copy {
+      background: var(--gold);
+      color: white;
+    }
+
+    .guest-btn-copy:hover {
+      background: var(--gold-dark);
+    }
+
+    .guest-btn-preview {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #81c784;
+    }
+
+    .guest-btn-preview:hover {
+      background: #c8e6c9;
+    }
+
+    .guest-btn-delete {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef5350;
+    }
+
+    .guest-btn-delete:hover {
+      background: #ffcdd2;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #7a7a7a;
+      font-size: 14px;
+      padding: 20px;
+    }
+
+    .admin-footer {
+      text-align: center;
+      border-top: 2px solid #f0f0f0;
+      padding-top: 30px;
+    }
+
+    .admin-btn-start {
+      padding: 14px 40px;
+      background: var(--gold);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(201, 168, 118, 0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .admin-btn-start:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201, 168, 118, 0.4);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .admin-container {
+        padding: 30px 24px;
+      }
+
+      .admin-header h1 {
+        font-size: 32px;
+      }
+
+      .generate-form {
+        flex-direction: column;
+      }
+
+      .admin-btn-generate {
+        width: 100%;
+      }
+
+      .guest-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .guest-actions {
+        width: 100%;
+        gap: 8px;
+      }
+
+      .guest-btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>Quản Lý Thiệp Mời</h1>
+      <p>Tạo và quản lý liên kết mời khách</p>
+    </div>
+
+    <div class="admin-content">
+      <!-- Generate Link Section -->
+      <div class="admin-section">
+        <h2>Tạo Liên Kết Mời</h2>
+        <form id="generateLinkForm" class="generate-form">
+          <input
+            type="text"
+            id="adminGuestName"
+            class="admin-input"
+            placeholder="Nhập tên khách mời..."
+            required
+          >
+          <input
+            type="text"
+            id="adminGuestName2"
+            class="admin-input"
+            placeholder="Nhập tên khách mời 2 (tuỳ chọn)..."
+          >
+          <button type="submit" class="admin-btn-generate">Tạo Liên Kết</button>
+        </form>
+      </div>
+
+      <!-- Guest List Section -->
+      <div class="admin-section">
+        <h2>Danh Sách Khách Mời</h2>
+        <div id="guestList" class="guest-list">
+          <p class="empty-message">Chưa có khách mời nào. Tạo một liên kết mới!</p>
+        </div>
+      </div>
+
+      <!-- Start Button -->
+      <div class="admin-footer">
+        <a href="invitation-generator.html" class="admin-btn-start">Bắt Đầu Xem Thiệp</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Get current location for generating links
+    const baseUrl = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') + '/';
+
+    // Load guests from localStorage
+    function loadGuests() {
+      const guests = JSON.parse(localStorage.getItem('guests') || '[]');
+      const guestList = document.getElementById('guestList');
+
+      if (guests.length === 0) {
+        guestList.innerHTML = '<p class="empty-message">Chưa có khách mời nào. Tạo một liên kết mới!</p>';
+        return;
+      }
+
+      guestList.innerHTML = guests.map((guest, index) => `
+        <div class="guest-item">
+          <div class="guest-info">
+            <div class="guest-name">${guest.name}</div>
+            <div class="guest-link">${guest.link}</div>
+          </div>
+          <div class="guest-actions">
+            <button class="guest-btn guest-btn-copy" onclick="copyLink('${guest.link}')">Sao Chép</button>
+            <a href="${guest.link}" target="_blank" class="guest-btn guest-btn-preview">Xem Trước</a>
+            <button class="guest-btn guest-btn-delete" onclick="deleteGuest(${index})">Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Generate shareable link
+    document.getElementById('generateLinkForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('adminGuestName').value.trim();
+      const name2 = document.getElementById('adminGuestName2').value.trim();
+
+      if (!name) return;
+
+      let link = `${baseUrl}invitation-generator.html?guest=${encodeURIComponent(name)}`;
+      if (name2) {
+        link += `&guest2=${encodeURIComponent(name2)}`;
+      }
+
+      const guests = JSON.parse(localStorage.getItem('guests') || '[]');
+
+      // Check if guest already exists
+      if (guests.some(g => g.name === name)) {
+        showToast('Khách mời này đã tồn tại!');
+        return;
+      }
+
+      guests.push({ name, link });
+      localStorage.setItem('guests', JSON.stringify(guests));
+
+      document.getElementById('adminGuestName').value = '';
+      document.getElementById('adminGuestName2').value = '';
+      loadGuests();
+      showToast(`Liên kết tạo thành công cho ${name}`);
+    });
+
+    // Copy link to clipboard
+    function copyLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        showToast('Đã sao chép liên kết!');
+      });
+    }
+
+    // Delete guest
+    function deleteGuest(index) {
+      if (confirm('Bạn có chắc muốn xóa khách mời này?')) {
+        const guests = JSON.parse(localStorage.getItem('guests') || '[]');
+        const guestName = guests[index].name;
+        guests.splice(index, 1);
+        localStorage.setItem('guests', JSON.stringify(guests));
+        loadGuests();
+        showToast(`Đã xóa ${guestName}`);
+      }
+    }
+
+    // Show toast notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Load guests on page load
+    loadGuests();
+  </script>
+</body>
+</html>

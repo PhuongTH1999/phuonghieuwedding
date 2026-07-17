@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh Hiếu & Hoàng Phương — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Tangerine:wght@400;700&family=Allura&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="wedding-photos/HAII7465.webp">
+<link rel="preload" as="image" href="wedding-photos/HAII8740.webp">
+<link rel="preload" as="image" href="wedding-photos/HAII8431.webp">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c9a876;
+    --gold-dark: #a68157;
+    --gold-light: #e5d4bf;
+    --dark: #1f1f1f;
+    --light: #fafaf8;
+    --light-bg: #f5f3f0;
+    --text: #4a4a4a;
+    --text-light: #7a7a7a;
+    --border: #e8e3dd;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text);
+    background: var(--light);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+
+  /* ===== NAVIGATION MENU ===== */
+  .nav-menu {
+    position: fixed; left: 0; top: 0; width: 0; height: 100vh;
+    background: rgba(31, 31, 31, 0.95); backdrop-filter: blur(10px);
+    z-index: 998; transition: width 0.3s ease; overflow-y: auto;
+  }
+
+  .nav-menu.active { width: 280px; }
+
+  .nav-menu ul {
+    list-style: none; padding: 100px 0 40px;
+  }
+
+  .nav-menu li {
+    margin: 0;
+  }
+
+  .nav-menu a {
+    display: block; padding: 16px 32px; color: rgba(255, 255, 255, 0.7);
+    text-decoration: none; font-size: 14px; letter-spacing: 1px;
+    text-transform: uppercase; transition: all 0.3s;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-menu a:hover {
+    color: white; background: rgba(201, 168, 118, 0.1);
+    border-left-color: var(--gold);
+  }
+
+  .nav-toggle {
+    position: fixed; top: 24px; left: 24px; z-index: 999;
+    width: 44px; height: 44px; background: rgba(255, 255, 255, 0.9);
+    border: none; cursor: pointer; border-radius: 4px;
+    display: none; flex-direction: column; justify-content: center;
+    align-items: center; gap: 5px; transition: all 0.3s;
+  }
+
+  .nav-toggle:hover { background: var(--light-bg); }
+  .nav-toggle span {
+    width: 20px; height: 2px; background: var(--dark);
+    transition: all 0.3s;
+  }
+
+  /* ===== STICKY HEADER ===== */
+  .sticky-header {
+    position: fixed; top: 0; right: 0; width: calc(100% - 0px); z-index: 997;
+    background: rgba(31, 31, 31, 0.4); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+  }
+
+  .header-container {
+    max-width: 1400px; margin: 0 auto; padding: 0 40px;
+    display: flex; justify-content: flex-start; align-items: center;
+    gap: 40px;
+  }
+
+  .logo-text {
+    font-family: 'Allura', cursive;
+    font-size: 32px; font-weight: 400; color: white;
+    letter-spacing: 5px;
+  }
+
+  .header-menu {
+    display: flex; gap: 12px; align-items: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    flex-direction: row-reverse;
+  }
+
+  .header-menu a {
+    color: white; text-decoration: none; font-size: 12px;
+    letter-spacing: 0.5px; font-weight: 500;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .header-menu a:hover,
+  .header-menu a.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
+
+  @media (min-width: 768px) {
+    .header-menu {
+      gap: 40px;
+      margin-left: 0;
+      flex-direction: row;
+      flex: 0;
+      flex-wrap: nowrap;
+    }
+
+    .header-menu a {
+      font-size: 14px;
+      white-space: nowrap;
+    }
+  }
+
+  .header-controls {
+    display: flex; gap: 20px; align-items: center;
+  }
+
+  .music-toggle {
+    width: 36px; height: 36px; background: var(--gold);
+    color: white; border: none; cursor: pointer;
+    border-radius: 4px; display: none; align-items: center;
+    justify-content: center; font-size: 16px; transition: all 0.3s;
+  }
+
+  .music-toggle:hover { background: var(--gold-dark); }
+
+  .theme-switcher {
+    display: none; gap: 8px;
+  }
+
+  .color-dot {
+    width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+    border: 2px solid transparent; transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .color-dot:hover { transform: scale(1.12); }
+  .color-dot.active { border-color: var(--text); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+
+  .dot-gold { background: linear-gradient(135deg, #e5d4bf, #c9a876); }
+  .dot-rose { background: linear-gradient(135deg, #f0d5db, #d4869c); }
+  .dot-sage { background: linear-gradient(135deg, #d8e8d0, #a8c480); }
+  .dot-dark { background: linear-gradient(135deg, #3a3a3a, #1a1a1a); }
+
+  .color-picker-btn {
+    width: 36px; height: 36px; background: white;
+    border: 1px solid var(--border); border-radius: 4px;
+    cursor: pointer; display: none; align-items: center;
+    justify-content: center; font-size: 16px; transition: all 0.3s;
+  }
+
+  .color-picker-btn:hover {
+    background: var(--light-bg); border-color: var(--gold);
+  }
+
+  .color-picker-modal {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; align-items: center; justify-content: center;
+  }
+
+  .color-picker-modal.active { display: flex; }
+
+  .color-picker-content {
+    background: white; padding: 32px; border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px; width: 90%;
+  }
+
+  .color-picker-content h3 {
+    margin-bottom: 20px; font-size: 20px; color: var(--dark);
+  }
+
+  .color-input-group {
+    margin-bottom: 20px;
+  }
+
+  .color-input-group label {
+    display: block; font-size: 12px; margin-bottom: 8px;
+    color: var(--text-light); text-transform: uppercase;
+    letter-spacing: 1px; font-weight: 600;
+  }
+
+  .color-input-group input[type="color"] {
+    width: 100%; height: 50px; border: 1px solid var(--border);
+    border-radius: 4px; cursor: pointer;
+  }
+
+  .picker-buttons {
+    display: flex; gap: 12px; margin-top: 24px;
+  }
+
+  .picker-btn {
+    flex: 1; padding: 12px; border: 1px solid var(--border);
+    background: white; cursor: pointer; border-radius: 4px;
+    font-weight: 600; transition: all 0.3s;
+  }
+
+  .picker-btn-primary {
+    background: var(--gold); color: white; border-color: var(--gold);
+  }
+
+  .picker-btn-primary:hover { background: var(--gold-dark); }
+
+  /* ===== AUDIO PLAYER ===== */
+  .audio-player {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    background: white; padding: 12px 16px; border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .audio-player.minimized {
+    width: 50px; height: 50px; padding: 0;
+  }
+
+  .audio-player button {
+    width: 36px; height: 36px; border: none; background: var(--gold);
+    color: white; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: all 0.3s;
+  }
+
+  .audio-player button:hover { background: var(--gold-dark); }
+
+  .player-info {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+
+  .player-title {
+    font-size: 12px; font-weight: 600; color: var(--text);
+  }
+
+  .player-artist {
+    font-size: 10px; color: var(--text-light);
+  }
+
+  .audio-player audio {
+    width: 100px; height: 5px;
+  }
+
+  /* ===== HERO ===== */
+  body { padding-top: 72px; }
+
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .hero-carousel {
+    position: absolute; inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  .hero-slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    background-color: #2b2b2b;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    transform: translateX(100%);
+  }
+
+  .hero-slide.active {
+    transform: translateX(0);
+  }
+
+  .hero-slide.prev {
+    transform: translateX(-100%);
+  }
+
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.20);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 700px;
+    padding: 80px 40px;
+    animation: fadeInUp 1.2s ease-out;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-label {
+    font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold-dark); margin-bottom: 24px; font-weight: 600;
+  }
+
+  .hero-names {
+    font-family: 'Allura', cursive;
+    font-size: clamp(60px, 12vw, 120px);
+    font-weight: 400; line-height: 1.2; color: white;
+    margin: 20px 0 16px; letter-spacing: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .names-divider {
+    display: inline-block; margin: 0 12px;
+    color: var(--gold); font-size: 0.5em; font-style: italic;
+  }
+
+  .hero-date {
+    font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-light); margin-top: 28px; font-weight: 500;
+  }
+
+  .decoration-line {
+    width: 50px; height: 1px; background: var(--gold);
+    margin: 24px auto;
+  }
+
+  /* ===== SECTIONS ===== */
+  .banner-section {
+    width: 100vw; margin-left: calc(-50vw + 50%);
+    height: 52vh; background-size: cover; background-position: center;
+    background-repeat: no-repeat; background-attachment: scroll;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45));
+    position: relative;
+  }
+
+  section {
+    padding: 100px 40px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+    position: relative;
+  }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.15);
+    z-index: 0;
+    backdrop-filter: blur(1px);
+    animation: overlayFade linear forwards;
+    animation-timeline: view();
+    animation-range: entry 0% cover 100%;
+  }
+
+  @keyframes overlayFade {
+    from {
+      backdrop-filter: blur(0px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    to {
+      backdrop-filter: blur(1px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  section > * {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  section[id] { scroll-margin-top: 72px; }
+
+  #countdown {
+    background-color: #f5f3f0;
+    background-image: url('wedding-photos/HAII7465.webp');
+  }
+  #details {
+    background-color: #f5f3f0;
+    background-image: url('wedding-photos/HAII8740.webp');
+  }
+  #gallery {
+    background-color: #f5f3f0;
+    background-image: url('wedding-photos/HAII8431.webp');
+  }
+  #location {
+    background-color: #efefef;
+    background-image: url('https://goldpalace.com.vn/photos/default/o_re7/home-banner/Gold-Palace-Nha-Hang-Tiec-Cuoi-Dep-TPHCM.jpg');
+  }
+  #rsvp {
+    background-color: #f5f3f0;
+    background-image: url('wedding-photos/HAII7573(1).webp');
+  }
+  #guestbook {
+    background-color: #f5f3f0;
+    background-image: url('wedding-photos/HAII7169.webp');
+  }
+
+  .section-label {
+    font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold-dark); margin-bottom: 16px; font-weight: 700;
+  }
+
+  .section-title {
+    font-size: clamp(38px, 6vw, 56px);
+    font-weight: 700; color: var(--dark); margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .section-subtitle {
+    font-size: 15px; color: var(--text-light);
+    margin-top: 20px;
+  }
+
+  /* ===== COUNTDOWN CALENDAR ===== */
+  .countdown-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; margin-top: 60px; max-width: 1200px; margin-left: auto; margin-right: auto;
+  }
+
+  .save-date-card {
+    background: white; padding: 60px 40px; border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--border);
+    text-align: center;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+
+  .save-date-card::before,
+  .save-date-card::after {
+    content: '❤️';
+    position: absolute;
+    font-size: 32px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .save-date-card::before { top: 30px; left: 20px; animation-delay: 0s; }
+  .save-date-card::after { bottom: 30px; right: 20px; animation-delay: 1s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .save-date-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 400; color: var(--dark);
+    margin-bottom: 20px; font-style: italic;
+    letter-spacing: -0.5px;
+  }
+
+  .save-date-subtitle {
+    font-size: 14px; color: var(--text-light);
+    margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+
+  .save-date-names {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 600; color: var(--dark);
+    margin-bottom: 24px;
+  }
+
+  .save-date-message {
+    font-size: 15px; color: var(--text-light); line-height: 1.8;
+  }
+
+  .calendar-card {
+    background: white; padding: 40px 32px; border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--border);
+    text-align: center;
+  }
+
+  .calendar-title {
+    font-size: 18px; font-weight: 600; color: var(--text-light);
+    margin-bottom: 20px; letter-spacing: 1px;
+  }
+
+  .calendar-table {
+    width: 100%; margin-bottom: 24px;
+  }
+
+  .calendar-table th {
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-light); font-weight: 600; padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .calendar-table td {
+    padding: 8px;
+    font-size: 13px; color: var(--text);
+    position: relative;
+  }
+
+  .calendar-day {
+    width: 100%; aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; transition: all 0.3s;
+    cursor: default;
+  }
+
+  .calendar-day.highlighted {
+    background: var(--gold); color: white; font-weight: 700;
+    box-shadow: 0 4px 12px rgba(201, 168, 118, 0.3);
+  }
+
+  .countdown-timer {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 32px;
+  }
+
+  .timer-unit {
+    text-align: center;
+  }
+
+  .timer-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700; color: var(--gold-dark);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .timer-label {
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+
+  /* ===== DETAILS / EVENTS ===== */
+  .details-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px; margin-top: 60px;
+    max-width: 1000px; margin-left: auto; margin-right: auto;
+  }
+
+  .detail-card {
+    background: white; padding: 0; border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center;
+    overflow: hidden;
+    position: relative;
+    content-visibility: auto;
+  }
+
+  .detail-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+  }
+
+  .detail-card::before {
+    content: '❤️';
+    position: absolute;
+    bottom: 20px; right: 20px;
+    font-size: 24px;
+    z-index: 10;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .detail-image {
+    width: 100%; height: 280px;
+    background-size: cover; background-position: center;
+    display: block;
+  }
+
+  .detail-content {
+    padding: 28px 24px;
+  }
+
+  .detail-icon {
+    font-size: 32px; margin-bottom: 16px;
+  }
+
+  .detail-title {
+    font-size: 16px; font-weight: 700; color: var(--dark);
+    margin-bottom: 16px; letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .detail-time {
+    font-size: 13px; letter-spacing: 0.5px;
+    color: var(--text); margin-bottom: 12px; font-weight: 500;
+  }
+
+  .detail-desc {
+    font-size: 13px; color: var(--text-light); line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .detail-buttons {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .detail-btn {
+    padding: 11px 24px; border: 1.5px solid var(--gold);
+    background: transparent; color: var(--gold);
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    border-radius: 6px; cursor: pointer; transition: background 0.3s, color 0.3s;
+    font-weight: 600;
+  }
+
+  .detail-btn:hover {
+    background: var(--gold); color: white;
+  }
+
+  /* ===== ALBUM ===== */
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 60px;
+  }
+
+  .album-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    will-change: transform;
+    contain: layout style;
+    content-visibility: auto;
+  }
+
+  .album-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .album-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .album-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .album-item.wide {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  /* ===== CAROUSEL ===== */
+
+  .carousel-wrapper { margin-top: 60px; }
+  .carousel-row { margin-bottom: 40px; }
+
+  .carousel-container {
+    position: relative; width: 100vw; margin-left: calc(-50vw + 50%);
+    overflow: hidden; background: white;
+  }
+
+  .carousel-track {
+    display: flex; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 0;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%; min-width: 100%;
+    position: relative; overflow: hidden;
+    height: 65vh; background: var(--light-bg);
+  }
+
+  .carousel-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+  }
+
+  .carousel-button {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; z-index: 10;
+    transition: all 0.3s;
+  }
+
+  .carousel-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .carousel-button.prev { left: 24px; }
+  .carousel-button.next { right: 24px; }
+
+  .carousel-indicators {
+    position: absolute; bottom: 24px; left: 50%;
+    transform: translateX(-50%); display: flex;
+    gap: 8px; z-index: 10;
+  }
+
+  .indicator {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer; transition: all 0.3s;
+  }
+
+  .indicator.active {
+    background: white; width: 24px; border-radius: 4px;
+  }
+
+  /* ===== MAP + RSVP GRID ===== */
+  .map-rsvp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media (min-width: 1200px) {
+    .map-rsvp-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .map-rsvp-grid section {
+      padding: 100px 40px;
+    }
+  }
+
+  /* ===== MAP ===== */
+
+  .map-container {
+    margin-top: 60px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .map-container iframe {
+    width: 100%; height: 420px; border: none; display: block;
+    filter: grayscale(0.2) contrast(0.95);
+  }
+
+  .location-info {
+    margin-top: 40px; text-align: center;
+  }
+
+  .location-title {
+    font-size: 28px; font-weight: 700; color: var(--dark);
+    margin-bottom: 8px; letter-spacing: -0.5px;
+  }
+
+  .location-address {
+    font-size: 15px; color: var(--text-light); line-height: 1.8;
+  }
+
+  /* ===== BUTTON ===== */
+  .btn-primary {
+    display: inline-block; margin-top: 28px; padding: 14px 44px;
+    background: var(--gold); color: white; text-decoration: none;
+    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    border: none; border-radius: 4px; cursor: pointer;
+    transition: all 0.3s; font-weight: 700;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-dark);
+    box-shadow: 0 8px 24px rgba(201, 168, 118, 0.4);
+    transform: translateY(-3px);
+  }
+
+  /* ===== RSVP ===== */
+
+  .form-container {
+    max-width: 560px; margin: 60px auto; background: white;
+    padding: 48px 40px; border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .form-group {
+    margin-bottom: 28px;
+  }
+
+  .form-label {
+    display: block; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-light);
+    margin-bottom: 10px; font-weight: 700;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%; padding: 12px 16px;
+    background: var(--light-bg); border: 1px solid var(--border);
+    border-radius: 4px; font-family: 'Montserrat', sans-serif;
+    font-size: 14px; color: var(--text);
+    transition: all 0.3s;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none; border-color: var(--gold);
+    background: white; box-shadow: 0 0 0 3px rgba(201, 168, 118, 0.1);
+  }
+
+  .form-textarea { resize: vertical; min-height: 110px; }
+
+  .radio-group {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+
+  .radio-input { display: none; }
+
+  .radio-label {
+    padding: 12px 16px; border: 1px solid var(--border);
+    border-radius: 4px; text-align: center; cursor: pointer;
+    transition: all 0.3s; font-size: 13px; font-weight: 600;
+  }
+
+  .radio-input:checked + .radio-label {
+    border-color: var(--gold); background: var(--gold); color: white;
+  }
+
+  .form-message {
+    text-align: center; color: var(--gold-dark);
+    margin-top: 20px; min-height: 20px; font-weight: 600;
+  }
+
+  /* ===== COMMENTS/GUESTBOOK ===== */
+  .guestbook-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  @media (min-width: 1024px) {
+    .guestbook-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .guestbook-comments {
+    background: white;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  .comments-section {
+    margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--border);
+  }
+
+  .comment-form {
+    background: white; padding: 32px; border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
+  }
+
+  .comment-form h4 {
+    font-size: 18px; margin-bottom: 20px; color: var(--dark);
+  }
+
+  .comments-list {
+    display: grid; gap: 20px;
+  }
+
+  .comment-item {
+    background: white; padding: 24px; border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .comment-author {
+    font-weight: 700; color: var(--dark); margin-bottom: 4px;
+  }
+
+  .comment-date {
+    font-size: 12px; color: var(--text-light); margin-bottom: 12px;
+  }
+
+  .comment-text {
+    color: var(--text); line-height: 1.7;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed; bottom: -100px; right: 24px; z-index: 1001;
+    background: white; padding: 16px 24px; border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.4s ease;
+  }
+
+  .toast.show { bottom: 120px; }
+
+  .toast.success::before { content: '✓'; color: #4caf50; font-weight: 700; font-size: 18px; }
+  .toast.error::before { content: '✕'; color: #f44336; font-weight: 700; font-size: 18px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark); color: white; padding: 80px 40px; text-align: center;
+  }
+
+  .footer-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-style: italic; margin-bottom: 20px;
+  }
+
+  .footer-credit {
+    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ===== IMAGE MODAL ===== */
+  .image-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px; backdrop-filter: blur(5px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .image-modal.active {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-image {
+    max-width: 90%; max-height: 90vh; object-fit: contain;
+    border-radius: 8px;
+    animation: scaleUp 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute; top: 24px; right: 24px;
+    width: 48px; height: 48px; background: rgba(255, 255, 255, 0.1);
+    border: none; color: white; font-size: 32px; cursor: pointer;
+    border-radius: 4px; transition: background 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 56px; height: 56px; background: rgba(255, 255, 255, 0.15);
+    border: none; color: white; font-size: 36px; cursor: pointer;
+    border-radius: 4px; transition: background 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1001;
+  }
+
+  .modal-prev { left: 24px; }
+  .modal-next { right: 24px; }
+
+  .modal-nav:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .modal-counter {
+    position: absolute; bottom: 24px; right: 24px;
+    color: rgba(255, 255, 255, 0.8); font-size: 14px;
+    background: rgba(0, 0, 0, 0.5); padding: 8px 16px;
+    border-radius: 4px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== GIFT MODAL ===== */
+  .gift-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); z-index: 1100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .gift-modal.active {
+    opacity: 1; visibility: visible;
+  }
+
+  .gift-modal-content {
+    background: white; padding: 40px; border-radius: 8px;
+    max-width: 900px; width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(100px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .gift-modal.active .gift-modal-content {
+    transform: translateY(0);
+  }
+
+  .gift-modal-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 40px; height: 40px; background: #ff6b6b; color: white;
+    border: none; border-radius: 50%; cursor: pointer; font-size: 24px;
+    transition: all 0.3s;
+  }
+
+  .gift-modal-close:hover {
+    background: #ff5252;
+  }
+
+  .gift-modal-title {
+    text-align: center; font-size: 32px; color: #ff6b6b;
+    margin-bottom: 30px; font-family: 'Playfair Display', serif;
+  }
+
+  .gift-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  }
+
+  .gift-card {
+    border: 2px solid #ff6b6b; border-radius: 8px; padding: 20px;
+    text-align: center;
+  }
+
+  .gift-card h3 {
+    font-size: 18px; color: var(--dark); margin-bottom: 20px;
+  }
+
+  .qr-placeholder {
+    width: 150px; height: 150px; margin: 0 auto 20px;
+    background: #f0f0f0; border: 2px dashed #ccc;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; border-radius: 8px;
+  }
+
+  .gift-info {
+    text-align: left; margin: 20px 0; font-size: 13px;
+  }
+
+  .gift-info p {
+    margin: 8px 0;
+  }
+
+  .crypto-info {
+    margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;
+  }
+
+  .crypto-icons {
+    display: flex; justify-content: center; gap: 15px; font-size: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .gift-modal-content {
+      padding: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .gift-modal-title {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .gift-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .gift-card {
+      padding: 12px;
+    }
+
+    .gift-card h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .qr-placeholder {
+      width: 100px; height: 100px;
+      margin: 0 auto 12px;
+    }
+
+    .gift-info {
+      margin: 12px 0;
+      font-size: 11px;
+    }
+
+    .gift-info p {
+      margin: 4px 0;
+    }
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    will-change: opacity, transform;
+  }
+
+  .reveal.in {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s;
+  }
+
+  .countdown-box {
+    animation: scaleIn 0.6s ease backwards;
+  }
+
+  .countdown-box:nth-child(1) { animation-delay: 0.1s; }
+  .countdown-box:nth-child(2) { animation-delay: 0.2s; }
+  .countdown-box:nth-child(3) { animation-delay: 0.3s; }
+  .countdown-box:nth-child(4) { animation-delay: 0.4s; }
+
+  .detail-card {
+    animation: slideUp 0.5s ease backwards;
+    will-change: transform, opacity;
+    contain: layout;
+  }
+
+  .detail-card:nth-child(1) { animation-delay: 0.05s; }
+  .detail-card:nth-child(2) { animation-delay: 0.1s; }
+  .detail-card:nth-child(3) { animation-delay: 0.15s; }
+  .detail-card:nth-child(4) { animation-delay: 0.2s; }
+
+  .comment-item {
+    animation: fadeInLeft 0.5s ease backwards;
+    will-change: opacity, transform;
+  }
+
+  .comment-item:nth-child(1) { animation-delay: 0.05s; }
+  .comment-item:nth-child(2) { animation-delay: 0.1s; }
+  .comment-item:nth-child(3) { animation-delay: 0.15s; }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Section background animation on scroll */
+  @media (min-width: 768px) {
+    section[id] {
+      animation: sectionBgZoom linear forwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 100%;
+    }
+
+    @keyframes sectionBgZoom {
+      from {
+        background-size: 100%;
+        opacity: 0.7;
+      }
+      to {
+        background-size: 110%;
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Parallax effect for hero on scroll */
+  @media (min-width: 1024px) {
+    .hero-slide {
+      animation: parallaxMove linear forwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 100%;
+    }
+
+    @keyframes parallaxMove {
+      from { transform: translateY(50px); }
+      to { transform: translateY(-50px); }
+    }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .header-container { padding: 0 24px; }
+    section { padding: 70px 24px; }
+    .banner-section { height: 45vh; }
+    .audio-player { bottom: 16px; right: 16px; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-menu.active { width: 100%; }
+    .hero { padding: 60px 24px; }
+    .hero::before { width: 400px; height: 400px; }
+    .hero::after { width: 350px; height: 350px; }
+
+    .hero-names { font-size: 42px; }
+    .section-title { font-size: 32px; }
+
+    .countdown-wrapper { grid-template-columns: 1fr; gap: 24px; }
+    .save-date-title { font-size: 36px; }
+    .save-date-card { padding: 40px 30px; }
+    .calendar-card { padding: 30px 24px; }
+
+    .carousel-slide { height: 50vh; }
+    .carousel-button { width: 44px; height: 44px; }
+
+    .form-container { padding: 32px 24px; }
+    .radio-group { grid-template-columns: 1fr; }
+
+    .map-container iframe { height: 300px; }
+    .audio-player { flex-direction: column; width: auto; }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 40px 16px; }
+    .hero-names { font-size: 32px; }
+
+    .section-title { font-size: 26px; }
+    section { padding: 50px 16px; }
+
+    .details-grid { grid-template-columns: 1fr; }
+    .countdown-grid { margin-top: 40px; }
+
+    .footer-message { font-size: 24px; }
+    .carousel-button { width: 40px; height: 40px; font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION MENU -->
+<div class="nav-menu" id="navMenu">
+  <ul>
+    <li><a href="#hero">Trang chủ</a></li>
+    <li><a href="#countdown">Đếm ngược</a></li>
+    <li><a href="#details">Sự kiện</a></li>
+    <li><a href="#album">Album</a></li>
+    <li><a href="#location">Địa điểm</a></li>
+    <li><a href="#rsvp">Xác nhận</a></li>
+    <li><a href="#guestbook">Sổ ghi chú</a></li>
+  </ul>
+</div>
+
+<!-- MENU TOGGLE -->
+<button class="nav-toggle" id="navToggle">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- STICKY HEADER -->
+<div class="sticky-header">
+  <div class="header-container">
+    <div class="logo-text">P♥H</div>
+    <div class="header-menu">
+      <a href="#hero">Home</a>
+      <a href="#details">Sự kiện cưới</a>
+      <a href="#location">Địa điểm</a>
+      <a href="#guestbook">Sổ lưu bút</a>
+      <a href="#rsvp">Hộp mừng cưới</a>
+    </div>
+    <div class="header-controls">
+      <button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc">🎵</button>
+      <button class="color-picker-btn" id="colorPickerBtn" title="Chọn màu nâng cao">🎨</button>
+      <div class="theme-switcher">
+        <div class="color-dot dot-gold active" data-theme="gold" title="Gold"></div>
+        <div class="color-dot dot-rose" data-theme="rose" title="Rose"></div>
+        <div class="color-dot dot-sage" data-theme="sage" title="Sage"></div>
+        <div class="color-dot dot-dark" data-theme="dark" title="Dark"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COLOR PICKER MODAL -->
+<div class="color-picker-modal" id="colorPickerModal">
+  <div class="color-picker-content">
+    <h3>Chọn màu tùy chỉnh</h3>
+    <div class="color-input-group">
+      <label for="colorGold">Màu chính</label>
+      <input type="color" id="colorGold" value="#c9a876">
+    </div>
+    <div class="color-input-group">
+      <label for="colorDark">Màu chữ tối</label>
+      <input type="color" id="colorDark" value="#1f1f1f">
+    </div>
+    <div class="color-input-group">
+      <label for="colorBg">Màu nền</label>
+      <input type="color" id="colorBg" value="#fafaf8">
+    </div>
+    <div class="picker-buttons">
+      <button class="picker-btn picker-btn-primary" id="applyColors">Áp dụng</button>
+      <button class="picker-btn" id="closeColorPicker">Đóng</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIO PLAYER -->
+<div class="audio-player" id="audioPlayer">
+  <button id="playBtn">▶</button>
+  <div class="player-info">
+    <div class="player-title">Nhạc cưới</div>
+    <div class="player-artist">Nhạc nền</div>
+  </div>
+  <audio id="audioElement" preload="auto" autoplay crossorigin="anonymous">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-carousel" id="heroCarousel">
+    <!-- <div class="hero-slide active" style="background-image: url('wedding-photos/HAII7465.webp');"></div> -->
+    <div class="hero-slide" style="background-image: url('wedding-photos/HAII8740.webp');"></div>
+    <!-- <div class="hero-slide" style="background-image: url('wedding-photos/HAII8431.webp');"></div> -->
+    <div class="hero-slide" style="background-image: url('wedding-photos/HAII7529.webp');"></div>
+    <div class="hero-slide" style="background-image: url('wedding-photos/HAII7573(1).webp');"></div>
+    <!-- <div class="hero-slide" style="background-image: url('wedding-photos/HAII7169.webp');"></div> -->
+  </div>
+  <div class="hero-content reveal">
+    <div class="hero-label">Trân trọng kính mời</div>
+    <div class="hero-names">
+      Hoàng Phương
+      <span class="names-divider">&</span>
+      Thanh Hiếu
+    </div>
+    <div class="decoration-line"></div>
+    <div class="hero-date">Chủ Nhật • 09 • 08 • 2026</div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-bg reveal" id="countdown">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <div class="section-label">Đếm ngược</div>
+    <h2 class="section-title">Ngày trọng đại</h2>
+  </div>
+  <div class="countdown-wrapper">
+    <!-- Save the Date Card -->
+    <div class="save-date-card">
+      <div class="save-date-title">Save the Date</div>
+      <div class="save-date-subtitle">For the wedding of</div>
+      <div class="save-date-names">Hoàng Phương & Thanh Hiếu</div>
+      <div class="save-date-message">Một lời chúc của bạn chắc chắn sẽ làm cho đám cưới của chúng tôi có thêm một niềm hạnh phúc!</div>
+    </div>
+
+    <!-- Calendar Card -->
+    <div class="calendar-card">
+      <div class="calendar-title">AUGUST / 2026</div>
+      <table class="calendar-table">
+        <thead>
+          <tr>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
+            <th>Thu</th><th>Fri</th><th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td><td></td><td></td><td></td>
+            <td></td><td></td><td><div class="calendar-day">1</div></td>
+          </tr>
+          <tr>
+            <td><div class="calendar-day">2</div></td>
+            <td><div class="calendar-day">3</div></td>
+            <td><div class="calendar-day">4</div></td>
+            <td><div class="calendar-day">5</div></td>
+            <td><div class="calendar-day">6</div></td>
+            <td><div class="calendar-day">7</div></td>
+            <td><div class="calendar-day">8</div></td>
+          </tr>
+          <tr>
+            <td><div class="calendar-day highlighted" id="weddingDay">9</div></td>
+            <td><div class="calendar-day">10</div></td>
+            <td><div class="calendar-day">11</div></td>
+            <td><div class="calendar-day">12</div></td>
+            <td><div class="calendar-day">13</div></td>
+            <td><div class="calendar-day">14</div></td>
+            <td><div class="calendar-day">15</div></td>
+          </tr>
+          <tr>
+            <td><div class="calendar-day">16</div></td>
+            <td><div class="calendar-day">17</div></td>
+            <td><div class="calendar-day">18</div></td>
+            <td><div class="calendar-day">19</div></td>
+            <td><div class="calendar-day">20</div></td>
+            <td><div class="calendar-day">21</div></td>
+            <td><div class="calendar-day">22</div></td>
+          </tr>
+          <tr>
+            <td><div class="calendar-day">23</div></td>
+            <td><div class="calendar-day">24</div></td>
+            <td><div class="calendar-day">25</div></td>
+            <td><div class="calendar-day">26</div></td>
+            <td><div class="calendar-day">27</div></td>
+            <td><div class="calendar-day">28</div></td>
+            <td><div class="calendar-day">29</div></td>
+          </tr>
+          <tr>
+            <td><div class="calendar-day">30</div></td>
+            <td><div class="calendar-day">31</div></td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="countdown-timer">
+        <div class="timer-unit">
+          <div class="timer-value" id="days">25</div>
+          <div class="timer-label">Ngày</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-value" id="hours">07</div>
+          <div class="timer-label">Giờ</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-value" id="minutes">05</div>
+          <div class="timer-label">Phút</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-value" id="seconds">22</div>
+          <div class="timer-label">Giây</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS / EVENTS -->
+<section class="reveal" id="details">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <div class="section-label">Các sự kiện</div>
+    <h2 class="section-title">Sự Kiện Cưới</h2>
+    <p style="color: var(--text-light); margin-top: 16px; font-size: 15px;">...tình yêu không phải lẻ nhìn chầm chầm vào nhau, mà là nhìn chầm chầm về cùng một hướng...</p>
+  </div>
+  <div class="details-grid">
+    <!-- Event 1 -->
+    <div class="detail-card">
+      <div class="detail-image" style="background-image: url('wedding-photos/HAII7465.webp');"></div>
+      <div class="detail-content">
+        <div class="detail-title">Báo Hỷ</div>
+        <div class="detail-time">07:30 AM • 25/07/2026</div>
+        <div class="detail-desc">Xã Tây Phú, Huyện Tây Sơn, Tỉnh Gia Lai</div>
+        <div class="detail-buttons">
+          <button class="detail-btn">📅 Thêm vào lịch</button>
+          <button class="detail-btn">🗺️ Xem bản đồ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event 2 -->
+    <div class="detail-card">
+      <div class="detail-image" style="background-image: url('wedding-photos/HAII8740.webp');"></div>
+      <div class="detail-content">
+        <div class="detail-title">Tiệc Cưới Nhà Nữ</div>
+        <div class="detail-time">05:39 PM • 01/08/2026</div>
+        <div class="detail-desc">Xã Tây Phú, Huyện Tây Sơn, Tỉnh Gia Lai</div>
+        <div class="detail-buttons">
+          <button class="detail-btn">📅 Thêm vào lịch</button>
+          <button class="detail-btn">🗺️ Xem bản đồ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div class="detail-card">
+      <div class="detail-image" style="background-image: url('wedding-photos/HAII8431.webp');"></div>
+      <div class="detail-content">
+        <div class="detail-title">Tiệc Cưới Nhà Nam</div>
+        <div class="detail-time">11:30 AM • 03/08/2026</div>
+        <div class="detail-desc">Nhà Hàng Hoàng Long, Huyện Tuy Phước, Tỉnh Gia Lai</div>
+        <div class="detail-buttons">
+          <button class="detail-btn">📅 Thêm vào lịch</button>
+          <button class="detail-btn">🗺️ Xem bản đồ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event 4 - Báo Hỷ -->
+    <div class="detail-card">
+      <div class="detail-image" style="background-image: url('wedding-photos/HAII7529.webp');"></div>
+      <div class="detail-content">
+        <div class="detail-title">Báo Hỷ</div>
+        <div class="detail-time">05:30 PM • 09/08/2026</div>
+        <div class="detail-desc">Trung tâm Hội nghị Gold Palace, TP. Hồ Chí Minh</div>
+        <div class="detail-buttons">
+          <button class="detail-btn">📅 Thêm vào lịch</button>
+          <button class="detail-btn">🗺️ Xem bản đồ</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ALBUM -->
+<section class="reveal" id="album">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <div class="section-label">Thư viện</div>
+    <h2 class="section-title">Album Hình Cưới</h2>
+  </div>
+  <div class="album-grid">
+    <div class="album-item wide"><img src="wedding-photos/HAII7465.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII8740.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII8431.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII7529.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item wide"><img src="wedding-photos/HAII7573(1).webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII7169.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII7387.webp" alt="Album" loading="lazy"></div>
+    <div class="album-item"><img src="wedding-photos/HAII8763.webp" alt="Album" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- MAP + RSVP WRAPPER -->
+<div class="map-rsvp-grid">
+<!-- MAP -->
+<section class="map-bg reveal" id="location">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <div class="section-label">Địa điểm</div>
+    <h2 class="section-title">Đến chung vui</h2>
+  </div>
+  <div class="location-info">
+    <div class="location-title">Trung tâm Hội nghị Gold Palace</div>
+    <div class="location-address">
+      Đường Nơ Trang Long, Bình Thạnh, TP. Hồ Chí Minh
+    </div>
+  </div>
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps?q=Gold+Palace+No+Trang+Long+Binh+Thanh+Ho+Chi+Minh&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <div style="text-align: center;">
+    <a class="btn-primary" href="https://www.google.com/maps/search/?api=1&query=Gold+Palace+No+Trang+Long+Binh+Thanh+Ho+Chi+Minh" target="_blank">Xem bản đồ</a>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="rsvp-bg reveal" id="rsvp">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <div class="section-label">Xác nhận</div>
+    <h2 class="section-title">Sự hiện diện của bạn</h2>
+    <p class="section-subtitle">Vui lòng xác nhận để chúng mình chuẩn bị chu đáo nhất</p>
+  </div>
+  <div class="form-container">
+    <form id="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-group">
+        <label class="form-label">Họ và tên</label>
+        <input type="text" class="form-input" id="name" name="name" required placeholder="Nhập họ tên của bạn" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bạn sẽ tham dự?</label>
+        <div class="radio-group">
+          <div>
+            <input type="radio" class="radio-input" id="attend-yes" name="attend" value="Có tham dự" checked>
+            <label class="radio-label" for="attend-yes">✓ Có, chắc chắn</label>
+          </div>
+          <div>
+            <input type="radio" class="radio-input" id="attend-no" name="attend" value="Không thể tham dự">
+            <label class="radio-label" for="attend-no">Tiếc, không thể</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Số người tham dự</label>
+        <select class="form-select" name="guests">
+          <option>1 người</option>
+          <option>2 người</option>
+          <option>3 người</option>
+          <option>4 người trở lên</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Lời chúc gửi tới cô dâu chú rể</label>
+        <textarea class="form-textarea" name="wish" placeholder="Gửi lời chúc của bạn..."></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="Xác nhận tham dự tiệc cưới Thanh Hiếu & Hoàng Phương">
+      <button type="submit" class="btn-primary" style="width: 100%;">Gửi xác nhận</button>
+      <div class="form-message" id="form-msg"></div>
+    </form>
+  </div>
+</section>
+</div>
+
+<!-- GUESTBOOK/COMMENTS -->
+<section class="reveal" id="guestbook">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <div class="section-label">Tương tác</div>
+    <h2 class="section-title">Sổ ghi chú từ khách</h2>
+  </div>
+
+  <div class="guestbook-grid">
+    <!-- COMMENT FORM -->
+    <div class="form-container">
+      <h4 style="margin-bottom: 20px; color: var(--dark);">Để lại bình luận của bạn</h4>
+      <form id="comment-form">
+        <div class="form-group">
+          <input type="text" class="form-input" id="comment-name" placeholder="Tên của bạn" required>
+        </div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="comment-text" placeholder="Bình luận của bạn..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Gửi bình luận</button>
+      </form>
+    </div>
+
+    <!-- COMMENTS LIST -->
+    <div class="guestbook-comments">
+      <h4 style="margin-bottom: 20px; color: var(--dark);">📝 Những lời chúc từ khách</h4>
+      <div class="comments-list" id="comments-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE LIGHTBOX MODAL -->
+<div id="imageModal" class="image-modal">
+  <button class="modal-close">&times;</button>
+  <button class="modal-nav modal-prev">‹</button>
+  <img id="modalImage" src="" alt="Album photo" class="modal-image">
+  <button class="modal-nav modal-next">›</button>
+  <div class="modal-counter"><span id="modalCounter">1</span> / <span id="modalTotal">8</span></div>
+</div>
+
+<!-- GIFT BOX MODAL -->
+<div id="giftModal" class="gift-modal">
+  <div class="gift-modal-content">
+    <button class="gift-modal-close">&times;</button>
+    <h2 class="gift-modal-title">🎁 Hộp mừng cưới</h2>
+
+    <div class="gift-grid">
+      <!-- GROOM GIFT -->
+      <div class="gift-card">
+        <h3>Mừng cưới đến chủ rễ</h3>
+        <div class="qr-placeholder">
+          <p>QR Code Thanh Hiếu</p>
+          <p style="font-size: 12px; color: #999;">Thay bằng QR code thực tế</p>
+        </div>
+        <div class="gift-info">
+          <p><strong>Ngân hàng:</strong> VPBank</p>
+          <p><strong>Số tài khoản:</strong> 123456789</p>
+          <p><strong>Tên tài khoản:</strong> Thanh Hiếu</p>
+          <p><strong>Chi nhánh:</strong> TP.HCM</p>
+        </div>
+      </div>
+
+      <!-- BRIDE GIFT -->
+      <div class="gift-card">
+        <h3>Mừng cưới đến cô dâu</h3>
+        <div class="qr-placeholder">
+          <p>QR Code Hoàng Phương</p>
+          <p style="font-size: 12px; color: #999;">Thay bằng QR code thực tế</p>
+        </div>
+        <div class="gift-info">
+          <p><strong>Ngân hàng:</strong> VPBank</p>
+          <p><strong>Số tài khoản:</strong> 987654321</p>
+          <p><strong>Tên tài khoản:</strong> Hoàng Phương</p>
+          <p><strong>Chi nhánh:</strong> TP.HCM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-message">Cảm ơn vì đã là một phần trong ngày vui của chúng mình</div>
+  <div class="footer-credit">Thanh Hiếu & Hoàng Phương • 09.08.2026</div>
+</footer>
+
+<script>
+  // ===== THEME & COLOR =====
+  const themes = {
+    gold: { '--gold': '#c9a876', '--gold-dark': '#a68157', '--gold-light': '#e5d4bf' },
+    rose: { '--gold': '#d4869c', '--gold-dark': '#c17088', '--gold-light': '#e8b5c8' },
+    sage: { '--gold': '#a8c480', '--gold-dark': '#8ab458', '--gold-light': '#c8dca8' },
+    dark: { '--gold': '#5a5a5a', '--gold-dark': '#3a3a3a', '--gold-light': '#7a7a7a' }
+  };
+
+  document.querySelectorAll('.color-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const theme = dot.dataset.theme;
+      Object.entries(themes[theme]).forEach(([k, v]) => {
+        document.documentElement.style.setProperty(k, v);
+      });
+      document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+  // Color Picker Modal
+  document.getElementById('colorPickerBtn').addEventListener('click', () => {
+    document.getElementById('colorPickerModal').classList.add('active');
+  });
+
+  document.getElementById('closeColorPicker').addEventListener('click', () => {
+    document.getElementById('colorPickerModal').classList.remove('active');
+  });
+
+  document.getElementById('applyColors').addEventListener('click', () => {
+    const gold = document.getElementById('colorGold').value;
+    const dark = document.getElementById('colorDark').value;
+    const bg = document.getElementById('colorBg').value;
+    document.documentElement.style.setProperty('--gold', gold);
+    document.documentElement.style.setProperty('--dark', dark);
+    document.documentElement.style.setProperty('--light', bg);
+    document.getElementById('colorPickerModal').classList.remove('active');
+    showToast('Màu đã được cập nhật!', 'success');
+  });
+
+  // ===== NAVIGATION =====
+  const navMenu = document.getElementById('navMenu');
+  const navToggle = document.getElementById('navToggle');
+
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+  });
+
+  // ===== SCROLL SPY MENU =====
+  const sections = document.querySelectorAll('section[id]');
+  const headerMenuLinks = document.querySelectorAll('.header-menu a');
+
+  function updateActiveMenu() {
+    let currentSection = '';
+    let maxOffset = -Infinity;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      const sectionCenter = sectionTop + sectionHeight / 2;
+
+      // Only mark as active if section top is above current scroll + offset
+      if (window.scrollY + 300 >= sectionTop) {
+        // Find section that starts latest (closest to current scroll position)
+        if (sectionTop > maxOffset) {
+          maxOffset = sectionTop;
+          currentSection = section.getAttribute('id');
+        }
+      }
+    });
+
+    headerMenuLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveMenu);
+  updateActiveMenu();
+
+  // ===== MUSIC PLAYER =====
+  const audioElement = document.getElementById('audioElement');
+  const playBtn = document.getElementById('playBtn');
+  let isPlaying = true;
+
+  // Try to autoplay on load
+  audioElement.play().catch(() => {
+    isPlaying = false;
+    playBtn.textContent = '▶';
+  });
+
+  playBtn.textContent = '⏸';
+
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      audioElement.pause();
+      playBtn.textContent = '▶';
+    } else {
+      audioElement.play();
+      playBtn.textContent = '⏸';
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // ===== HERO CAROUSEL =====
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  let heroIndex = 0;
+
+  function updateHeroSlides() {
+    heroSlides.forEach((slide, i) => {
+      slide.classList.remove('active', 'prev');
+      if (i === heroIndex) {
+        slide.classList.add('active');
+      } else if (i < heroIndex) {
+        slide.classList.add('prev');
+      }
+    });
+  }
+
+  function nextHeroSlide() {
+    heroIndex = (heroIndex + 1) % heroSlides.length;
+    updateHeroSlides();
+  }
+
+  updateHeroSlides();
+  setInterval(nextHeroSlide, 5000);
+
+  // ===== COUNTDOWN =====
+  const target = new Date('2026-08-09T18:30:00+07:00').getTime();
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+    document.getElementById('days').textContent = Math.floor(diff / 86400000);
+    document.getElementById('hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ===== REVEAL ON SCROLL =====
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        requestAnimationFrame(() => {
+          entry.target.classList.add('in');
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // ===== CAROUSEL =====
+  function initCarousel(id) {
+    const container = document.querySelector(`[data-carousel="${id}"]`);
+    if (!container) return; // Skip if carousel doesn't exist
+
+    const track = container.querySelector('.carousel-track');
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.carousel-slide');
+    const indicators = container.querySelector('[data-carousel="' + id + '"].carousel-indicators');
+    if (!indicators || slides.length === 0) return;
+
+    const total = slides.length;
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = `indicator ${i === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goTo(i));
+      indicators.appendChild(dot);
+    });
+
+    function render() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      indicators.querySelectorAll('.indicator').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(i) {
+      current = (i + total) % total;
+      render();
+    }
+
+    const prevBtn = container.querySelector('.prev');
+    const nextBtn = container.querySelector('.next');
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    let timer = setInterval(() => goTo(current + 1), 5000);
+    container.addEventListener('mouseenter', () => clearInterval(timer));
+    container.addEventListener('mouseleave', () => {
+      timer = setInterval(() => goTo(current + 1), 5000);
+    });
+  }
+
+  initCarousel(1);
+  initCarousel(2);
+
+  // ===== TOAST NOTIFICATIONS =====
+  function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
+
+  // ===== RSVP FORM =====
+  document.getElementById('rsvp-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    if (!name) {
+      showToast('Vui lòng nhập họ tên', 'error');
+      return;
+    }
+    if (document.getElementById('rsvp-form').action.includes('YOUR_FORM_ID')) {
+      showToast(`Cảm ơn ${name}! (Demo)`, 'success');
+      document.getElementById('rsvp-form').reset();
+      return;
+    }
+    try {
+      const res = await fetch(document.getElementById('rsvp-form').action, {
+        method: 'POST',
+        body: new FormData(document.getElementById('rsvp-form')),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        showToast(`Cảm ơn ${name}!`, 'success');
+        document.getElementById('rsvp-form').reset();
+      } else {
+        showToast('Có lỗi, vui lòng thử lại', 'error');
+      }
+    } catch (err) {
+      showToast('Lỗi kết nối', 'error');
+    }
+  });
+
+  // ===== COMMENTS/GUESTBOOK =====
+  const comments = JSON.parse(localStorage.getItem('weddingComments')) || [];
+
+  function renderComments() {
+    const list = document.getElementById('comments-list');
+    list.innerHTML = comments.map(c => `
+      <div class="comment-item">
+        <div class="comment-author">${c.name}</div>
+        <div class="comment-date">${new Date(c.date).toLocaleDateString('vi-VN')}</div>
+        <div class="comment-text">${c.text}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('comment-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('comment-name').value.trim();
+    const text = document.getElementById('comment-text').value.trim();
+    if (name && text) {
+      comments.unshift({ name, text, date: new Date() });
+      localStorage.setItem('weddingComments', JSON.stringify(comments));
+      renderComments();
+      document.getElementById('comment-form').reset();
+      showToast('Bình luận đã được lưu!', 'success');
+    }
+  });
+
+  renderComments();
+
+  // ===== IMAGE LIGHTBOX =====
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeBtn = document.querySelector('.modal-close');
+  const prevBtn = document.querySelector('.modal-prev');
+  const nextBtn = document.querySelector('.modal-next');
+  const modalCounter = document.getElementById('modalCounter');
+  const modalTotal = document.getElementById('modalTotal');
+
+  let currentImageIndex = 0;
+  const albumImages = [];
+  const albumItems = document.querySelectorAll('.album-item');
+
+  albumItems.forEach(item => {
+    const img = item.querySelector('img');
+    if (img && img.src) {
+      albumImages.push(img.src);
+    }
+  });
+
+  modalTotal.textContent = albumImages.length;
+
+  function openModal(index) {
+    currentImageIndex = index % albumImages.length;
+    modalImage.src = albumImages[currentImageIndex];
+    modalCounter.textContent = (currentImageIndex + 1) + ' / ' + albumImages.length;
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+  }
+
+  albumItems.forEach((item, idx) => {
+    item.style.cursor = 'pointer';
+    item.onclick = function() {
+      openModal(idx);
+    };
+  });
+
+  if (closeBtn) closeBtn.onclick = closeModal;
+  if (prevBtn) prevBtn.onclick = function() { openModal(currentImageIndex - 1); };
+  if (nextBtn) nextBtn.onclick = function() { openModal(currentImageIndex + 1); };
+
+  modal.onclick = function(e) {
+    if (e.target === modal) closeModal();
+  };
+
+  document.onkeydown = function(e) {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') openModal(currentImageIndex - 1);
+    if (e.key === 'ArrowRight') openModal(currentImageIndex + 1);
+  };
+
+  // ===== GIFT MODAL =====
+  const giftModal = document.getElementById('giftModal');
+  const giftCloseBtn = document.querySelector('.gift-modal-close');
+
+  // Open gift modal when clicking "Hộp mừng cưới" link
+  document.querySelectorAll('.header-menu a[href="#rsvp"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      giftModal.classList.add('active');
+    });
+  });
+
+  giftCloseBtn.onclick = function() {
+    giftModal.classList.remove('active');
+  };
+
+  giftModal.onclick = function(e) {
+    if (e.target === giftModal) {
+      giftModal.classList.remove('active');
+    }
+  };
+</script>
+
+</body>
+</html>

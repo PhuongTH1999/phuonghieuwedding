@@ -364,6 +364,79 @@
       transform: translateY(-2px);
     }
 
+    /* ===== MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1001;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 50px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--dark);
+    }
+
+    .modal-body {
+      text-align: center;
+    }
+
+    .modal-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .modal-body p {
+      font-size: 15px;
+      color: #7a7a7a;
+      line-height: 1.6;
+    }
+
     .invitation-item.card-1 {
       background: url('image_page/page1.png');
       background-size: contain;
@@ -588,7 +661,7 @@
         width: 100vw;
         aspect-ratio: 1477 / 1065;
         padding: 30px 0 0 0;
-        margin: 18px 0 0 0;
+        /*margin: 18px 0 0 0;*/
       }
 
       .invitation-item.card-2 {
@@ -925,9 +998,21 @@
 
       <!-- BOTTOM BUTTONS -->
       <div class="invitations-buttons">
-        <button class="btn-primary">Xác nhận tham dự</button>
-        <button class="btn-secondary">Thông Tin cưới</button>
+        <button class="btn-primary" id="confirmBtn">Xác nhận tham dự</button>
+        <button class="btn-secondary" id="infoBtn">Thông Tin cưới</button>
       </div>
+    </div>
+  </div>
+
+  <!-- COMING SOON MODAL -->
+  <div class="modal" id="comingSoonModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <div class="modal-body">
+        <h2>Coming Soon</h2>
+        <p>Tính năng này sẽ ra mắt sớm! 🎉</p>
+      </div>
+    </div>
     </div>
     </div>
   </div>
@@ -1014,6 +1099,30 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && invitationsContainer.classList.contains('show')) {
         closeBtn.click();
+      }
+    });
+
+    // Modal handlers
+    const confirmBtn = document.getElementById('confirmBtn');
+    const infoBtn = document.getElementById('infoBtn');
+    const modal = document.getElementById('comingSoonModal');
+    const modalClose = document.getElementById('modalClose');
+
+    confirmBtn.addEventListener('click', () => {
+      modal.classList.add('show');
+    });
+
+    infoBtn.addEventListener('click', () => {
+      modal.classList.add('show');
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
       }
     });
   </script>

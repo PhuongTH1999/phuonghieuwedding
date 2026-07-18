@@ -371,11 +371,6 @@
 
       if (!name) return;
 
-      let link = `${baseUrl}image-viewer.html?guest=${encodeURIComponent(name)}`;
-      if (name2) {
-        link += `&guest2=${encodeURIComponent(name2)}`;
-      }
-
       const guests = JSON.parse(localStorage.getItem('guests') || '[]');
 
       // Check if guest already exists
@@ -384,7 +379,13 @@
         return;
       }
 
-      guests.push({ name, link });
+      // Generate unique ID using timestamp
+      const id = Date.now();
+      const link = `${baseUrl}image-viewer.html?id=${id}`;
+
+      // Save guest with ID
+      const guestData = { id, name, name2: name2 || '', link };
+      guests.push(guestData);
       localStorage.setItem('guests', JSON.stringify(guests));
 
       document.getElementById('adminGuestName').value = '';

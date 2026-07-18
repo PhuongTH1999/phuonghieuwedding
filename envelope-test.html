@@ -25,7 +25,7 @@
       --half-img-width: calc(var(--img-width) / 2);
       --envelope-width: calc(var(--img-width) * 1.2);
       --safe-shift: max(0px, calc((100dvh - var(--img-width)) / 2));
-      --move-down: min(calc(var(--img-width) * 0.4), var(--safe-shift));
+      --move-down: min(calc(var(--img-width) * 0.5), var(--safe-shift));
       --move-up: calc(min(calc(var(--img-width) * 0.25), var(--safe-shift)) * -1);
       --end-scale: 1.1;
       --inv-w: 696;
@@ -122,7 +122,7 @@
       width: 100%;
       min-height: 110dvh;
       box-sizing: border-box;
-      overflow: hidden;
+      overflow: visible;
       position: relative;
       z-index: 10;
     }
@@ -272,6 +272,13 @@
       100% { transform: translateY(var(--move-up)) rotate(0deg) scale(var(--end-scale)); }
     }
 
+    @keyframes cardSequence {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      40% { transform: translateY(60px) scale(1); opacity: 1; }
+      70% { transform: translateY(60px) scale(1.15); opacity: 0.8; }
+      100% { transform: translateY(60px) scale(1.15); opacity: 0; }
+    }
+
     @keyframes slidedown {
       0% { transform: translateY(0); }
       100% { transform: translateY(var(--move-down)); }
@@ -375,13 +382,43 @@
       margin-top: 8px;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
+      :root {
+        --img-width-base: min(85vw, calc(85dvh * 0.65), 350px);
+        --scale-factor: 0.85;
+        --move-down: min(calc(var(--img-width) * 0.3), var(--safe-shift));
+        --move-up: calc(min(calc(var(--img-width) * 0.15), var(--safe-shift)) * -1);
+        --end-scale: 1.05;
+      }
+
+      .envelope-wrapper {
+        min-height: 100dvh;
+        overflow: auto;
+      }
+
+      .envelope {
+        max-width: 100%;
+      }
+
       .countdown {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 8px;
       }
-      .invitation-text {
-        /* margin-top: 30px; */
+
+      .countdown-number {
+        font-size: 18px;
+      }
+
+      .countdown-label {
+        font-size: 8px;
+      }
+
+      .invitation-text h1 {
+        font-size: clamp(20px, 6vw, 32px);
+      }
+
+      .invitation-text p {
+        font-size: clamp(11px, 2.8vw, 14px);
       }
     }
   </style>
@@ -523,17 +560,24 @@
       envelopeCard.classList.add('animate');
       document.body.classList.add('opened');
 
+      // Phase 2: After initial animation (5s), apply card sequence animation
       setTimeout(() => {
-        let redirectUrl = 'image-viewer.html';
+        const invitation = document.querySelector('.invitation');
+        invitation.style.animation = 'cardSequence 2s ease-in forwards';
 
-        if (guestName) {
-          redirectUrl += `?guest=${encodeURIComponent(guestName)}`;
-          if (guestName2) {
-            redirectUrl += `&guest2=${encodeURIComponent(guestName2)}`;
+        // Phase 3: After card sequence completes (2s), redirect
+        setTimeout(() => {
+          let redirectUrl = 'image-viewer.html';
+
+          if (guestName) {
+            redirectUrl += `?guest=${encodeURIComponent(guestName)}`;
+            if (guestName2) {
+              redirectUrl += `&guest2=${encodeURIComponent(guestName2)}`;
+            }
           }
-        }
 
-        window.location.href = redirectUrl;
+          window.location.href = redirectUrl;
+        }, 2000);
       }, 5000);
     }
 

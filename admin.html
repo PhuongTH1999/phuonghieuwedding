@@ -379,12 +379,13 @@
         return;
       }
 
-      // Generate unique ID using timestamp
-      const id = Date.now();
-      const link = `${baseUrl}envelope.html?id=${id}`;
+      // Encode guest data to Base64
+      const guestInfo = { name, name2: name2 || '' };
+      const encodedData = btoa(JSON.stringify(guestInfo));
+      const link = `${baseUrl}envelope.html?data=${encodedData}`;
 
-      // Save guest with ID
-      const guestData = { id, name, name2: name2 || '', link };
+      // Save guest for local reference
+      const guestData = { id: Date.now(), name, name2: name2 || '', link };
       guests.push(guestData);
       localStorage.setItem('guests', JSON.stringify(guests));
 

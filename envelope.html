@@ -253,7 +253,21 @@
 
     // Get URL parameters to pass through
     const urlParams = new URLSearchParams(window.location.search);
-    const guestId = urlParams.get('id');
+    const encodedData = urlParams.get('data');
+
+    let guestName = '';
+    let guestName2 = '';
+
+    // Decode Base64 guest data if present
+    if (encodedData) {
+      try {
+        const guestInfo = JSON.parse(atob(encodedData));
+        guestName = guestInfo.name || '';
+        guestName2 = guestInfo.name2 || '';
+      } catch (e) {
+        console.error('Error decoding guest data:', e);
+      }
+    }
 
     // Loading progress animation
     let progress = 0;
@@ -278,20 +292,15 @@
       setTimeout(() => {
         let redirectUrl = 'image-viewer.html';
 
-        if (guestId) {
-          // Get guest data from localStorage by ID
-          const guests = JSON.parse(localStorage.getItem('guests') || '[]');
-          const guest = guests.find(g => g.id === parseInt(guestId));
-
-          if (guest) {
-            // Pass guest names via URL for other devices
-            redirectUrl += `?guest=${encodeURIComponent(guest.name)}`;
-            if (guest.name2) {
-              redirectUrl += `&guest2=${encodeURIComponent(guest.name2)}`;
-            }
+        if (guestName) {
+          // Pass guest names via URL
+          redirectUrl += `?guest=${encodeURIComponent(guestName)}`;
+          if (guestName2) {
+            redirectUrl += `&guest2=${encodeURIComponent(guestName2)}`;
           }
         }
 
+        console.log('Redirect URL:', redirectUrl);
         window.location.href = redirectUrl;
       }, 600);
     });

@@ -18,7 +18,7 @@ export default function handler(req, res) {
     console.error('Error decoding guest data:', e);
   }
 
-  const displayName = guestName2 ? `${guestName} & ${guestName2}` : guestName;
+  const displayName = guestName;
   const pageTitle = `Thiệp mời cưới - ${displayName}`;
   const ogDescription = `Thanh Hiếu & Hoàng Phương xin trân trọng kính mời ${displayName}`;
   const ogImage = 'https://phuonghieuwedding.vercel.app/image_page/page1.png';

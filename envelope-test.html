@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Thiệp Mời Cưới</title>
+
+  <!-- Open Graph Meta Tags for Social Media Preview -->
+  <meta property="og:title" id="ogTitle" content="Thiệp Mời Cưới">
+  <meta property="og:description" id="ogDescription" content="Thanh Hiếu & Hoàng Phương xin trân trọng kính mời">
+  <meta property="og:image" id="ogImage" content="https://phuonghieuwedding.vercel.app/image_page/page1.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" id="ogUrl" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitterTitle" content="Thiệp Mời Cưới">
+  <meta name="twitter:image" id="twitterImage" content="https://phuonghieuwedding.vercel.app/image_page/page1.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --img-width-base: min(80vw, calc(88dvh * 0.68), 500px);
+      --scale-factor: 0.8;
+      --img-width: calc(var(--img-width-base) * var(--scale-factor));
+      --half-img-width: calc(var(--img-width) / 2);
+      --envelope-width: calc(var(--img-width) * 1.2);
+      --safe-shift: max(0px, calc((100dvh - var(--img-width)) / 2));
+      --move-down: min(calc(var(--img-width) * 0.4), var(--safe-shift));
+      --move-up: calc(min(calc(var(--img-width) * 0.25), var(--safe-shift)) * -1);
+      --end-scale: 1.1;
+      --inv-w: 696;
+      --inv-h: 1024;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body.opened {
+      overflow: auto;
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-content {
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 300px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #c9a876, #e5d4bf);
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 4px;
+      box-shadow: 0 0 20px rgba(201, 168, 118, 0.5);
+    }
+
+    .progress-text {
+      color: white;
+      font-size: 48px;
+      font-weight: 700;
+      margin-top: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .loading-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      margin-top: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ===== ENVELOPE SCENE ===== */
+    .envelope-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 110dvh;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+
+    .envelope {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--envelope-width);
+      max-width: 95vw;
+      height: var(--img-width);
+      perspective: 1000px;
+    }
+
+    .invitation {
+      position: absolute;
+      width: var(--img-width);
+      aspect-ratio: var(--inv-w) / var(--inv-h);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      background-size: cover;
+      background-position: center;
+      transform: rotate(-90deg);
+      z-index: 0;
+    }
+
+    .invitation-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .invitation-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .envelope-img-1 {
+      animation: fadeInOut 4s ease-in-out infinite;
+    }
+
+    .envelope-img-2 {
+      animation: fadeInOut 4s ease-in-out 2s infinite reverse;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 1; }
+      45%, 55% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .envelope-front {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      width: 0;
+      height: 0;
+      border-left: var(--img-width) solid #953535;
+      border-right: var(--img-width) solid #953535;
+      border-bottom: var(--half-img-width) solid #8e0101;
+      border-top: var(--half-img-width) solid transparent;
+    }
+
+    .envelope-back, .envelope-flap {
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: var(--img-width) solid transparent;
+      border-right: var(--img-width) solid transparent;
+      border-top: var(--half-img-width) solid #8e0101;
+    }
+
+    .envelope-back {
+      z-index: 0;
+    }
+
+    .envelope-flap {
+      z-index: 3;
+      transform-origin: top center;
+    }
+
+    .stamp {
+      position: absolute;
+      z-index: 4;
+      width: min(24vw, 96px);
+      height: min(24vw, 96px);
+      top: calc(var(--half-img-width) - 48px);
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    .prompt-text {
+      margin-top: 16px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(12px, 4vw, 16px);
+      color: #c9a876;
+      text-align: center;
+      animation: pulseText 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* Animation classes applied on click */
+    .animate .invitation {
+      animation: slideup 3s 2s forwards;
+    }
+
+    .animate .envelope-front,
+    .animate .envelope-back,
+    .animate .stamp {
+      animation: slidedown 3s 2s forwards;
+    }
+
+    .animate .stamp {
+      animation: pulse 2s infinite ease-in-out, slidedown 3s 2s forwards;
+    }
+
+    .animate .envelope-flap {
+      animation: openflap 2s forwards, slidedownflap 3s 2s forwards;
+    }
+
+    @keyframes slideup {
+      0% { transform: rotate(-90deg); }
+      50% { transform: translateY(var(--move-up)) rotate(-90deg); }
+      100% { transform: translateY(var(--move-up)) rotate(0deg) scale(var(--end-scale)); }
+    }
+
+    @keyframes slidedown {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(var(--move-down)); }
+    }
+
+    @keyframes openflap {
+      0% { transform: rotateX(0deg); z-index: 3; }
+      100% { transform: rotateX(180deg); z-index: 0; }
+    }
+
+    @keyframes slidedownflap {
+      0% { transform: translateY(0) rotateX(180deg); }
+      100% { transform: translateY(var(--move-down)) rotateX(180deg); }
+    }
+
+    @media (max-width: 500px) {
+      :root {
+        --img-width-base: min(90vw, calc(90dvh * 0.65), 400px);
+        --scale-factor: 0.9;
+        --end-scale: 1.05;
+      }
+      .envelope {
+        max-width: 95vw;
+      }
+    }
+
+    @media (max-height: 600px) {
+      :root {
+        --move-down: min(calc(var(--img-width) * 0.3), var(--safe-shift));
+        --move-up: calc(min(calc(var(--img-width) * 0.2), var(--safe-shift)) * -1);
+        --end-scale: 1;
+      }
+    }
+
+    /* ===== INVITATION TEXT & COUNTDOWN ===== */
+    .invitation-text {
+      text-align: center;
+      color: white;
+      padding: 40px 20px 80px;
+      z-index: 5;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    .invitation-text h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(28px, 7vw, 48px);
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+
+    .invitation-text p {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(12px, 3vw, 16px);
+      opacity: 0.85;
+      letter-spacing: 0.5px;
+      margin: 0 0 16px 0;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(8px, 2vw, 16px);
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 0 20px;
+    }
+
+    .countdown-item {
+      background: rgba(201, 168, 118, 0.1);
+      border: 1px solid rgba(201, 168, 118, 0.3);
+      padding: clamp(12px, 2vw, 16px);
+      border-radius: 8px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .countdown-item:hover {
+      background: rgba(201, 168, 118, 0.15);
+      border-color: rgba(201, 168, 118, 0.5);
+    }
+
+    .countdown-number {
+      font-size: clamp(20px, 5vw, 32px);
+      font-weight: 700;
+      color: #c9a876;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-size: clamp(10px, 2.5vw, 12px);
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 500px) {
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .invitation-text {
+        /* margin-top: 30px; */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">0%</div>
+      <div class="loading-label">Đang tạo thiệp mời...</div>
+    </div>
+  </div>
+
+  <!-- ENVELOPE SCENE -->
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope" id="envelopeCard">
+      <div class="envelope-flap"></div>
+      <div class="envelope-back"></div>
+      <div class="invitation">
+        <div class="invitation-content">
+          <div class="invitation-card">
+            <img class="envelope-img envelope-img-1" src="image_page/page1.png" alt="Thiệp mời cưới">
+          </div>
+        </div>
+      </div>
+      <div class="envelope-front"></div>
+    </div>
+    <div class="prompt-text">Nhấp để mở thiệp</div>
+
+    <!-- INVITATION TEXT & COUNTDOWN -->
+    <div class="invitation-text">
+      <h1>Hoàng Phương & Thanh Hiếu</h1>
+      <p>Xin kính mời bạn dự tiệc cưới</p>
+
+      <div class="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">Ngày</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">Giờ</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">Phút</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">Giây</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <script>
+    // Loading elements
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const envelopeCard = document.getElementById('envelopeCard');
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+
+    let guestName = '';
+    let guestName2 = '';
+
+    // Decode Base64 guest data if present
+    if (encodedData) {
+      try {
+        const decodedString = decodeURIComponent(escape(atob(encodedData)));
+        const guestInfo = JSON.parse(decodedString);
+        guestName = guestInfo.name || '';
+        guestName2 = guestInfo.name2 || '';
+
+        // Update OG meta tags
+        const displayName = guestName;
+        const pageTitle = `Thiệp mời cưới - ${displayName}`;
+        const ogDescription = `Thanh Hiếu & Hoàng Phương xin trân trọng kính mời ${displayName}`;
+
+        document.getElementById('pageTitle').textContent = pageTitle;
+        document.getElementById('ogTitle').setAttribute('content', pageTitle);
+        document.getElementById('ogDescription').setAttribute('content', ogDescription);
+        document.getElementById('twitterTitle').setAttribute('content', pageTitle);
+        document.getElementById('ogUrl').setAttribute('content', window.location.href);
+      } catch (e) {
+        console.error('Error decoding guest data:', e);
+      }
+    }
+
+    // Loading progress animation
+    let progress = 0;
+    const loadingInterval = setInterval(() => {
+      progress += Math.random() * 30;
+      if (progress > 100) progress = 100;
+      progressFill.style.width = progress + '%';
+      progressText.textContent = Math.floor(progress) + '%';
+
+      if (progress === 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+          loadingScreen.classList.add('hidden');
+        }, 600);
+      }
+    }, 300);
+
+    // Countdown timer
+    function updateCountdown() {
+      const weddingDate = new Date('2026-08-09T00:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Envelope click handler
+    function handleInteraction() {
+      envelopeCard.classList.add('animate');
+      document.body.classList.add('opened');
+
+      setTimeout(() => {
+        let redirectUrl = 'image-viewer.html';
+
+        if (guestName) {
+          redirectUrl += `?guest=${encodeURIComponent(guestName)}`;
+          if (guestName2) {
+            redirectUrl += `&guest2=${encodeURIComponent(guestName2)}`;
+          }
+        }
+
+        window.location.href = redirectUrl;
+      }, 5000);
+    }
+
+    document.addEventListener('click', handleInteraction, { once: true });
+    document.addEventListener('touchstart', handleInteraction, { once: true });
+  </script>
+</body>
+</html>

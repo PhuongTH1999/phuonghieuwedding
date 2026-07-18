@@ -186,6 +186,8 @@
       background: #e8f5e9;
       color: #2e7d32;
       border: 1px solid #81c784;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .guest-btn-preview:hover {
@@ -327,7 +329,7 @@
 
       <!-- Start Button -->
       <div class="admin-footer">
-        <a href="invitation-generator.html" class="admin-btn-start">Bắt Đầu Xem Thiệp</a>
+        <a href="envelope-test.html" class="admin-btn-start">Bắt Đầu Xem Thiệp</a>
       </div>
     </div>
   </div>
@@ -355,12 +357,53 @@
             <div class="guest-link">${guest.link}</div>
           </div>
           <div class="guest-actions">
-            <button class="guest-btn guest-btn-copy" onclick="copyLink('${guest.link}')">Sao Chép</button>
+            <button type="button" class="guest-btn guest-btn-copy" data-link="${guest.link}">Sao Chép</button>
             <a href="${guest.link}" target="_blank" class="guest-btn guest-btn-preview">Xem Trước</a>
-            <button class="guest-btn guest-btn-delete" onclick="deleteGuest(${index})">Xóa</button>
+            <button type="button" class="guest-btn guest-btn-delete" data-index="${index}">Xóa</button>
           </div>
         </div>
       `).join('');
+
+      // Add event listeners for copy buttons
+      document.querySelectorAll('.guest-btn-copy').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const link = this.getAttribute('data-link');
+          if (link) {
+            const textarea = document.createElement('textarea');
+            textarea.value = link;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+              document.execCommand('copy');
+              showToast('Đã sao chép liên kết!');
+            } catch (err) {
+              console.error('Copy failed:', err);
+              showToast('Sao chép thất bại!');
+            }
+            document.body.removeChild(textarea);
+          }
+        });
+      });
+
+      // Add event listeners for delete buttons
+      document.querySelectorAll('.guest-btn-delete').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const index = this.getAttribute('data-index');
+          if (confirm('Bạn có chắc muốn xóa khách mời này?')) {
+            const guests = JSON.parse(localStorage.getItem('guests') || '[]');
+            const guestName = guests[index].name;
+            guests.splice(index, 1);
+            localStorage.setItem('guests', JSON.stringify(guests));
+            loadGuests();
+            showToast(`Đã xóa ${guestName}`);
+          }
+        });
+      });
     }
 
     // Generate shareable link
@@ -383,7 +426,7 @@
       const guestInfo = { name, name2: name2 || '' };
       const jsonString = JSON.stringify(guestInfo);
       const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
-      const link = `${baseUrl}api/og?data=${encodedData}`;
+      const link = `${baseUrl}envelope-test.html?data=${encodedData}`;
 
       // Save guest for local reference
       const guestData = { id: Date.now(), name, name2: name2 || '', link };
@@ -395,25 +438,6 @@
       loadGuests();
       showToast(`Liên kết tạo thành công cho ${name}`);
     });
-
-    // Copy link to clipboard
-    function copyLink(link) {
-      navigator.clipboard.writeText(link).then(() => {
-        showToast('Đã sao chép liên kết!');
-      });
-    }
-
-    // Delete guest
-    function deleteGuest(index) {
-      if (confirm('Bạn có chắc muốn xóa khách mời này?')) {
-        const guests = JSON.parse(localStorage.getItem('guests') || '[]');
-        const guestName = guests[index].name;
-        guests.splice(index, 1);
-        localStorage.setItem('guests', JSON.stringify(guests));
-        loadGuests();
-        showToast(`Đã xóa ${guestName}`);
-      }
-    }
 
     // Show toast notification
     function showToast(message) {

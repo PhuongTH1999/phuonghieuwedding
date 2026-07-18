@@ -135,6 +135,27 @@
       font-weight: 600;
     }
 
+    .image-download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(201, 168, 118, 0.9);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .image-download-btn:hover {
+      background: rgba(201, 168, 118, 1);
+      transform: scale(1.05);
+    }
+
     .image-item {
       position: relative;
     }
@@ -189,6 +210,7 @@
       <div class="image-item">
         <img src="image_page/page1.png" alt="Trang 1">
         <div class="image-text" id="text1"></div>
+        <!-- <button class="image-download-btn" data-page="1">Tải ảnh</button> -->
       </div>
 
       <!-- Page 2 -->
@@ -209,6 +231,7 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     // Get guest names from URL parameters or localStorage
     const urlParams = new URLSearchParams(window.location.search);
@@ -248,6 +271,79 @@
     if (guestName2) {
       document.getElementById('text3').textContent = guestName2;
     }
+
+    // Handle download image with text overlay
+    document.querySelectorAll('.image-download-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const page = btn.getAttribute('data-page');
+        const imageItem = btn.closest('.image-item');
+        const img = imageItem.querySelector('img');
+        const textOverlay = imageItem.querySelector('.image-text, .image-text3');
+
+        try {
+          btn.textContent = 'Đang xử lý...';
+          btn.disabled = true;
+
+          // Create new image object to get dimensions
+          const newImg = new Image();
+          newImg.crossOrigin = 'anonymous';
+          newImg.onload = () => {
+            // Create canvas with image dimensions
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = newImg.width;
+            canvas.height = newImg.height;
+
+            // Draw image on transparent background
+            ctx.drawImage(newImg, 0, 0);
+
+            // Draw text overlay if exists
+            if (textOverlay && textOverlay.textContent) {
+              const fontSize = window.getComputedStyle(textOverlay).fontSize;
+              const fontFamily = window.getComputedStyle(textOverlay).fontFamily;
+              const color = window.getComputedStyle(textOverlay).color;
+              const textContent = textOverlay.textContent;
+
+              ctx.font = `600 ${fontSize} ${fontFamily}`;
+              ctx.fillStyle = color;
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+
+              // Calculate position (roughly center bottom or based on original positioning)
+              const x = canvas.width / 2;
+              const y = canvas.height * (page === '3' ? 0.3 : 0.9);
+
+              ctx.fillText(textContent, x, y);
+            }
+
+            // Download
+            canvas.toBlob((blob) => {
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = `thiep-cuoi-page${page}-${guestName || 'guest'}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+
+              btn.textContent = 'Tải ảnh';
+              btn.disabled = false;
+            }, 'image/png');
+          };
+          newImg.src = img.src;
+        } catch (err) {
+          console.error('Download failed:', err);
+          btn.textContent = 'Lỗi!';
+          setTimeout(() => {
+            btn.textContent = 'Tải ảnh';
+            btn.disabled = false;
+          }, 2000);
+        }
+      });
+    });
   </script>
 </body>
 </html>

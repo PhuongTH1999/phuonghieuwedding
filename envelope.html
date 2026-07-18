@@ -258,10 +258,11 @@
     let guestName = '';
     let guestName2 = '';
 
-    // Decode Base64 guest data if present
+    // Decode Base64 guest data if present (with UTF-8 support)
     if (encodedData) {
       try {
-        const guestInfo = JSON.parse(atob(encodedData));
+        const decodedString = decodeURIComponent(escape(atob(encodedData)));
+        const guestInfo = JSON.parse(decodedString);
         guestName = guestInfo.name || '';
         guestName2 = guestInfo.name2 || '';
       } catch (e) {

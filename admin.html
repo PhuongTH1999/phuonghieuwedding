@@ -379,9 +379,10 @@
         return;
       }
 
-      // Encode guest data to Base64
+      // Encode guest data to Base64 (with UTF-8 support)
       const guestInfo = { name, name2: name2 || '' };
-      const encodedData = btoa(JSON.stringify(guestInfo));
+      const jsonString = JSON.stringify(guestInfo);
+      const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
       const link = `${baseUrl}envelope.html?data=${encodedData}`;
 
       // Save guest for local reference

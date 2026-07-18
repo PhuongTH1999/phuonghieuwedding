@@ -35,16 +35,16 @@ export default function handler(req, res) {
   <meta property="og:description" content="${ogDescription}">
   <meta property="og:image" content="${ogImage}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://phuonghieuwedding.vercel.app/envelope.html?data=${data}">
+  <meta property="og:url" content="https://phuonghieuwedding.vercel.app/envelope-test.html?data=${data}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${pageTitle}">
   <meta name="twitter:image" content="${ogImage}">
 
   <script>
-    window.location.href = '/envelope.html?data=${data}';
+    window.location.href = '/envelope-test.html?data=${data}';
   </script>
   <noscript>
-    <meta http-equiv="refresh" content="0; url=/envelope.html?data=${data}">
+    <meta http-equiv="refresh" content="0; url=/envelope-test.html?data=${data}">
   </noscript>
 </head>
 <body>

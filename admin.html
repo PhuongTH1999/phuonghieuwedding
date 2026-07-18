@@ -426,7 +426,7 @@
       const guestInfo = { name, name2: name2 || '' };
       const jsonString = JSON.stringify(guestInfo);
       const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
-      const link = `${baseUrl}envelope-test.html?data=${encodedData}`;
+      const link = `${baseUrl}api/og?data=${encodedData}`;
 
       // Save guest for local reference
       const guestData = { id: Date.now(), name, name2: name2 || '', link };

@@ -273,10 +273,10 @@
     }
 
     @keyframes cardSequence {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      40% { transform: translateY(60px) scale(1); opacity: 1; }
-      70% { transform: translateY(60px) scale(1.15); opacity: 0.8; }
-      100% { transform: translateY(60px) scale(1.15); opacity: 0; }
+      0% { transform: translateY(var(--move-up)) rotate(0deg) scale(var(--end-scale)); opacity: 1; }
+      30% { transform: translateY(var(--move-up)) rotate(0deg) scale(var(--end-scale)); opacity: 1; }
+      65% { transform: translateY(var(--move-down)) rotate(0deg) scale(1.1); opacity: 0.9; }
+      100% { transform: translateY(var(--move-down)) rotate(0deg) scale(1.1); opacity: 0; }
     }
 
     @keyframes slidedown {
@@ -563,6 +563,12 @@
       // Phase 2: After initial animation (5s), apply card sequence animation
       setTimeout(() => {
         const invitation = document.querySelector('.invitation');
+        const envelope = document.querySelector('.envelope');
+
+        // Position invitation as fixed overlay
+        invitation.style.position = 'fixed';
+        invitation.style.zIndex = '999';
+        invitation.style.transform = 'translate(-50%, -50%)';
         invitation.style.animation = 'cardSequence 2s ease-in forwards';
 
         // Phase 3: After card sequence completes (2s), redirect

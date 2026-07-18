@@ -381,20 +381,6 @@
     background: rgba(255, 255, 255, 0.15);
     z-index: 0;
     backdrop-filter: blur(1px);
-    animation: overlayFade linear forwards;
-    animation-timeline: view();
-    animation-range: entry 0% cover 100%;
-  }
-
-  @keyframes overlayFade {
-    from {
-      backdrop-filter: blur(0px);
-      background: rgba(255, 255, 255, 0.05);
-    }
-    to {
-      backdrop-filter: blur(1px);
-      background: rgba(255, 255, 255, 0.15);
-    }
   }
 
   section > * {
@@ -450,7 +436,7 @@
   /* ===== COUNTDOWN CALENDAR ===== */
   .countdown-wrapper {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 40px; margin-top: 60px; max-width: 1200px; margin-left: auto; margin-right: auto;
+    gap: 40px; margin-top: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;
   }
 
   .save-date-card {
@@ -564,7 +550,7 @@
   /* ===== DETAILS / EVENTS ===== */
   .details-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px; margin-top: 60px;
+    gap: 32px; margin-top: 20px;
     max-width: 1000px; margin-left: auto; margin-right: auto;
   }
 
@@ -642,7 +628,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 16px;
-    margin-top: 60px;
+    margin-top: 20px;
   }
 
   .album-item {
@@ -682,7 +668,7 @@
 
   /* ===== CAROUSEL ===== */
 
-  .carousel-wrapper { margin-top: 60px; }
+  .carousel-wrapper { margin-top: 20px; }
   .carousel-row { margin-bottom: 40px; }
 
   .carousel-container {
@@ -760,7 +746,7 @@
   /* ===== MAP ===== */
 
   .map-container {
-    margin-top: 60px; border-radius: 8px; overflow: hidden;
+    margin-top: 20px; border-radius: 8px; overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 
@@ -860,7 +846,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 40px;
-    margin-top: 60px;
+    margin-top: 20px;
   }
 
   @media (min-width: 1024px) {
@@ -1203,39 +1189,6 @@
     }
   }
 
-  /* Section background animation on scroll */
-  @media (min-width: 768px) {
-    section[id] {
-      animation: sectionBgZoom linear forwards;
-      animation-timeline: view();
-      animation-range: entry 0% cover 100%;
-    }
-
-    @keyframes sectionBgZoom {
-      from {
-        background-size: 100%;
-        opacity: 0.7;
-      }
-      to {
-        background-size: 110%;
-        opacity: 1;
-      }
-    }
-  }
-
-  /* Parallax effect for hero on scroll */
-  @media (min-width: 1024px) {
-    .hero-slide {
-      animation: parallaxMove linear forwards;
-      animation-timeline: view();
-      animation-range: entry 0% cover 100%;
-    }
-
-    @keyframes parallaxMove {
-      from { transform: translateY(50px); }
-      to { transform: translateY(-50px); }
-    }
-  }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 1024px) {

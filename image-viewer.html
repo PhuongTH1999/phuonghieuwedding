@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xem Thiệp Mời</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1129px;
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(to right, #f9dce5 0%, #f2f1f6 100%);
+      color: rgb(173, 2, 9);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(36px, 7vw, 56px);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .header p {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(16px, 4.5vw, 28px);
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .images-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .image-item {
+      width: 100%;
+      overflow: hidden;
+      /* background: #f5f3f0; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .image-item3 {
+      width: 100%;
+      overflow: hidden;
+      /* background: #f5f3f0; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .image-text {
+   position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+
+    padding-bottom:7%;
+
+    transform:translateX(6%);
+    font-family: 'Great Vibes', cursive;
+      font-size: clamp(16px, 4.5vw, 44px);
+      color: #A91D3A;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    .image-text3 {
+      position:absolute;
+      inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding-top:30%;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(16px, 4.5vw, 44px);
+      color: #A91D3A;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .image-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .image-item {
+      position: relative;
+    }
+
+    .footer {
+      background: #f5f3f0;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid #e8e3dd;
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #7a7a7a;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 20px 16px;
+      }
+
+      .image-item {
+        min-height: 250px;
+      }
+    }
+
+    /* Loading animation */
+    .image-item img {
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thiệp Cưới</h1>
+      <p>Hoàng Phương & Thanh Hiếu • 09.08.2026</p>
+    </div>
+
+    <div class="images-wrapper">
+      <!-- Page 1 -->
+      <div class="image-item">
+        <img src="image_page/page1.png" alt="Trang 1">
+        <div class="image-text" id="text1"></div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="image-item">
+        <img src="image_page/page2.png" alt="Trang 2">
+        <!-- <div class="image-text" id="text2"></div> -->
+      </div>
+
+      <!-- Page 3 -->
+      <div class="image-item">
+        <img src="image_page/page3.png" alt="Trang 3">
+        <div class="image-text3" id="text3"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Cảm ơn vì đã là một phần trong ngày vui của chúng mình 💕</p>
+    </div>
+  </div>
+
+  <script>
+    // Get guest name from URL parameters or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestFromUrl = urlParams.get('guest');
+    const guest2FromUrl = urlParams.get('guest2');
+
+    // Save guest names if from URL
+    if (guestFromUrl) {
+      localStorage.setItem('guestName', guestFromUrl);
+    }
+    if (guest2FromUrl) {
+      localStorage.setItem('guestName2', guest2FromUrl);
+    }
+
+    // Get guest names
+    const guestName = guestFromUrl || localStorage.getItem('guestName') || '';
+    const guestName2 = guest2FromUrl || localStorage.getItem('guestName2') || '';
+
+    // Populate text on images
+    if (guestName) {
+      document.getElementById('text1').textContent = guestName;
+    }
+    if (guestName2) {
+      document.getElementById('text3').textContent = guestName2;
+    }
+  </script>
+</body>
+</html>

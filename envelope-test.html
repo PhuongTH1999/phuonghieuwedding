@@ -149,6 +149,8 @@
       background-position: center;
       transform: rotate(-90deg);
       z-index: 0;
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     .invitation-content {
@@ -174,17 +176,13 @@
     }
 
     .envelope-img-1 {
-      animation: fadeInOut 4s ease-in-out infinite;
+      animation: none;
+      opacity: 1;
     }
 
     .envelope-img-2 {
-      animation: fadeInOut 4s ease-in-out 2s infinite reverse;
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 1; }
-      45%, 55% { opacity: 1; }
-      50% { opacity: 0; }
+      animation: none;
+      opacity: 0;
     }
 
     .envelope-front {
@@ -248,6 +246,12 @@
     }
 
     /* Animation classes applied on click */
+    .animate #imageButton {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
     .animate .invitation {
       animation: slideup 3s 2s forwards;
     }
@@ -438,6 +442,25 @@
   <!-- ENVELOPE SCENE -->
   <div class="envelope-wrapper" id="envelopeWrapper">
     <div class="envelope" id="envelopeCard">
+      <!-- Image Button - Overlay on Envelope -->
+      <img
+        id="imageButton"
+        src="https://pro.thiepcuoigiakiem.com/wp-content/uploads/2025/09/Pro002_Intro_Moc3.png"
+        alt="Mở thiệp mời"
+        style="
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          max-width: 120px;
+          width: auto;
+          height: auto;
+          cursor: pointer;
+          user-select: none;
+          transition: transform 0.3s ease;
+          z-index: 100;
+        "
+      >
       <div class="envelope-flap"></div>
       <div class="envelope-back"></div>
       <div class="invitation">
@@ -587,8 +610,20 @@
       }, 5000);
     }
 
+    // Trigger interaction on click/touch anywhere or on image button
     document.addEventListener('click', handleInteraction, { once: true });
     document.addEventListener('touchstart', handleInteraction, { once: true });
+
+    // Add hover effect for image button
+    const imageButton = document.getElementById('imageButton');
+    if (imageButton) {
+      imageButton.addEventListener('mouseenter', () => {
+        imageButton.style.transform = 'translate(-50%, -50%) scale(1.1)';
+      });
+      imageButton.addEventListener('mouseleave', () => {
+        imageButton.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    }
   </script>
 </body>
 </html>

@@ -8,9 +8,9 @@ export default function handler(req, res) {
   let guestName = 'Quý Khách';
   let guestName2 = '';
 
-  // Decode Base64 data
+  // Decode Base64 data (same method as envelope-test.html)
   try {
-    const decodedString = Buffer.from(data, 'base64').toString('utf-8');
+    const decodedString = decodeURIComponent(escape(atob(data)));
     const guestInfo = JSON.parse(decodedString);
     guestName = guestInfo.name || 'Quý Khách';
     guestName2 = guestInfo.name2 || '';

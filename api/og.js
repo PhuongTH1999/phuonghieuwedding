@@ -23,6 +23,9 @@ export default function handler(req, res) {
   const ogDescription = `Thanh Hiếu & Hoàng Phương xin trân trọng kính mời ${displayName}`;
   const ogImage = 'https://phuonghieuwedding.vercel.app/image_page/page1.png';
 
+  // URL-encode the data for safe transmission in URL parameters
+  const encodedData = encodeURIComponent(data);
+
   const html = `<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -35,16 +38,16 @@ export default function handler(req, res) {
   <meta property="og:description" content="${ogDescription}">
   <meta property="og:image" content="${ogImage}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://phuonghieuwedding.vercel.app/envelope-test.html?data=${data}">
+  <meta property="og:url" content="https://phuonghieuwedding.vercel.app/envelope-test.html?data=${encodedData}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${pageTitle}">
   <meta name="twitter:image" content="${ogImage}">
 
   <script>
-    window.location.href = '/envelope-test.html?data=${data}';
+    window.location.href = '/envelope-test.html?data=${encodedData}';
   </script>
   <noscript>
-    <meta http-equiv="refresh" content="0; url=/envelope-test.html?data=${data}">
+    <meta http-equiv="refresh" content="0; url=/envelope-test.html?data=${encodedData}">
   </noscript>
 </head>
 <body>

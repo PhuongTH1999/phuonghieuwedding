@@ -181,6 +181,15 @@
       .image-item {
         min-height: 250px;
       }
+
+      .website-section {
+        padding: 40px 20px;
+      }
+
+      .website-btn {
+        font-size: 14px;
+        padding: 12px 32px;
+      }
     }
 
     /* Loading animation */
@@ -194,6 +203,112 @@
       }
       to {
         opacity: 1;
+      }
+    }
+
+    /* Website Section */
+    .website-section {
+      padding: 60px 40px;
+      text-align: center;
+      background: linear-gradient(135deg, #f9dce5 0%, #f2f1f6 100%);
+      position: relative;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .website-section.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .website-section::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, #A91D3A, #A0708D);
+      animation: highlightPulse 2s ease-in-out infinite;
+    }
+
+    .website-section h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(28px, 6vw, 48px);
+      color: #A91D3A;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .website-section p {
+      font-size: clamp(14px, 3vw, 18px);
+      color: #666;
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    .website-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #D8A5C4 0%, #A0708D 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(160, 112, 141, 0.4), 0 0 20px rgba(169, 29, 58, 0.2);
+      cursor: pointer;
+      border: none;
+      animation: buttonPulse 2s ease-in-out infinite;
+    }
+
+    .website-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(160, 112, 141, 0.6), 0 0 30px rgba(169, 29, 58, 0.3);
+      animation: none;
+    }
+
+    @keyframes buttonPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(160, 112, 141, 0.4), 0 0 20px rgba(169, 29, 58, 0.2);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(160, 112, 141, 0.6), 0 0 35px rgba(169, 29, 58, 0.4);
+      }
+    }
+
+    .website-btn .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .website-btn:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    @keyframes highlightPulse {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(169, 29, 58, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(160, 112, 141, 0.8);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .website-section {
+        padding: 40px 20px;
+      }
+
+      .website-btn {
+        font-size: 14px;
+        padding: 12px 32px;
       }
     }
   </style>
@@ -223,6 +338,16 @@
       <div class="image-item">
         <img src="image_page/page3.png" alt="Trang 3">
         <div class="image-text3" id="text3"></div>
+      </div>
+
+      <!-- Website Link Button -->
+      <div class="website-section">
+        <h2>Cảm ơn bạn đã chúc mừng</h2>
+        <p>Hãy cùng chia sẻ niềm vui của chúng tôi</p>
+        <a href="https://phuonghieuwedding.iwedding.info/" target="_blank" class="website-btn">
+          Xem Chi Tiết Đám Cưới
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
 
@@ -262,6 +387,21 @@
     }
     if (guestName2) {
       document.getElementById('text3').textContent = guestName2;
+    }
+
+    // Intersection Observer for website section animation
+    const websiteSection = document.querySelector('.website-section');
+    if (websiteSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(websiteSection);
     }
 
     // Handle download image with text overlay

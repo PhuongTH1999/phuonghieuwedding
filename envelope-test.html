@@ -502,6 +502,16 @@
         guestName = guestInfo.name || '';
         guestName2 = guestInfo.name2 || '';
 
+        // Save to localStorage for reliable access
+        localStorage.setItem('guestName', guestName);
+        localStorage.setItem('guestName2', guestName2);
+
+        console.log('🔍 ENVELOPE DEBUG:');
+        console.log('Encoded Data:', encodedData);
+        console.log('Decoded String:', decodedString);
+        console.log('Guest Name:', guestName);
+        console.log('Guest Name 2:', guestName2);
+
         // Update OG meta tags
         const displayName = guestName;
         const pageTitle = `Thiệp mời cưới - ${displayName}`;

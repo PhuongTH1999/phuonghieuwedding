@@ -428,13 +428,6 @@
       const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
       const link = `${baseUrl}api/og?data=${encodedData}`;
 
-      console.log('🔍 ADMIN DEBUG:');
-      console.log('Guest Name Input:', name);
-      console.log('Guest Name 2 Input:', name2);
-      console.log('JSON String:', jsonString);
-      console.log('Encoded Data:', encodedData);
-      console.log('Generated Link:', link);
-
       // Save guest for local reference
       const guestData = { id: Date.now(), name, name2: name2 || '', link };
       guests.push(guestData);

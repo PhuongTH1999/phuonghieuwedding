@@ -239,11 +239,6 @@
     const guestFromUrl = urlParams.get('guest');
     const guest2FromUrl = urlParams.get('guest2');
 
-    console.log('🔍 IMAGE-VIEWER DEBUG:');
-    console.log('URL:', window.location.href);
-    console.log('Guest from URL:', guestFromUrl);
-    console.log('Guest2 from URL:', guest2FromUrl);
-
     let guestName = '';
     let guestName2 = '';
 
@@ -260,9 +255,6 @@
       guestName = guestFromUrl || '';
       guestName2 = guest2FromUrl || '';
     }
-
-    console.log('Final Guest Name:', guestName);
-    console.log('Final Guest Name 2:', guestName2);
 
     // Populate text on images
     if (guestName) {

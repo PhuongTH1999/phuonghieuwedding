@@ -426,7 +426,8 @@
       const guestInfo = { name, name2: name2 || '' };
       const jsonString = JSON.stringify(guestInfo);
       const encodedData = btoa(unescape(encodeURIComponent(jsonString)));
-      const link = `${baseUrl}api/og?data=${encodedData}`;
+      // URL-encode the Base64 data to prevent + becoming space in query params
+      const link = `${baseUrl}api/og?data=${encodeURIComponent(encodedData)}`;
 
       // Save guest for local reference
       const guestData = { id: Date.now(), name, name2: name2 || '', link };
